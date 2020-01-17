@@ -1,8 +1,8 @@
 # CS120B_labs
 Collection of labs for CS120B Intro to Embedded Systems
 ### Contributors:
-Ruth Navarrete (@ruth-navarrete)
-Dylan McDowell (@DylanMcDowell)
+* Ruth Navarrete (@ruth-navarrete)
+* Dylan McDowell (@DylanMcDowell)
 
 # Notes
 * `ssh [username]@bolt.cs.ucr.edu` - to connect to UCR server

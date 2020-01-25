@@ -1,16 +1,16 @@
 /*	Author: rnava021
- *  Partner(s) Name: Dylan McDowell
+ *	Partner(s) Name: Dylan McDowell
  *	Lab Section: 24
  *	Assignment: Lab 4 Exercise 2
  *	Exercise Description: [optional - include for your own benefit]
  *	Buttons are connected to PA0 and PA1. Output for PORTC is initially 7. 
  *	Pressing PA0 increments PORTC once (stopping at 9). 
  *	Pressing PA1 decrements PORTC once (stopping at 0). If both buttons 
- *	are depressed (even if not initially simultaneously), PORTC resets to 0. 
+ *	are depressed (even if not initially simultaneously), PORTC resets to 0
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
- */
+ *	*/
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
@@ -120,14 +120,11 @@ int main(void) {
     DDRA = 0x00; PINA = 0xFF;  // Configure port A's 8 pins as inputs
     DDRC = 0xFF; PORTC = 0x00;  // Configure port C's 8 pins as outputs
                                 // Initialize output on PORTC to 0x00
-
     /* Initialize state machine */
     state = start;
     /* Initialize tempC value */
     tempC = 0x00;
-
     /* Call state machine tick */
     while (1) { doorLock_tick(); }
-
     return 0;
 }

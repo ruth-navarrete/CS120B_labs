@@ -1,12 +1,15 @@
-/*	Author: rnava021
- *  Partner(s) Name: Dylan McDowell
+/*	Author: rnava021, dmcdo006
+ *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab 4 Exercise 2
+ *	Assignment: Lab 5 Exercise 2
  *	Exercise Description: [optional - include for your own benefit]
  *	Buttons are connected to PA0 and PA1. Output for PORTC is initially 7. 
  *	Pressing PA0 increments PORTC once (stopping at 9). 
  *	Pressing PA1 decrements PORTC once (stopping at 0). If both buttons 
- *	are depressed (even if not initially simultaneously), PORTC resets to 0. 
+ *	are depressed (even if not initially simultaneously), PORTC resets to 0.
+ *  If a reset occurs, both buttons should be fully released before additional
+ *  increments or decrements are allowed to happen. Use LEDs (and resistors)
+ *  on PORTC. Use a state machine (not synchronous) captured in C. 
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.

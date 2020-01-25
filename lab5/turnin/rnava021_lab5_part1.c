@@ -1,7 +1,7 @@
-/*	Author: rnava021
- *  Partner(s) Name: Dylan McDowell
+/*	Author: rnava021, dmcdo006
+ *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab 3  Exercise 2
+ *	Assignment: Lab 5  Exercise 1
  *	Exercise Description: [optional - include for your own benefit]
  *	A car has a fuel-level sensor that sets PA3..PA0 to a value between
  *	0 (empty) and 15 (full). A series of LEDs connected to PC5..PC0 should
@@ -22,8 +22,8 @@
 
 int main(void) {
 
-    DDRA = 0x00; PINA = 0xFF;       /* Configure PORTA as input, initialize to 1s */
-    DDRC = 0xFF; PORTC = 0x00; /* Configure PORTC as output, initialize to 0s */
+    DDRA = 0x00; PINA = 0xFF;   /* Configure PORTA as input, initialize to 1s */
+    DDRC = 0xFF; PORTC = 0x00;  /* Configure PORTC as output, initialize to 0s */
     unsigned char outputC = 0x00;
 
     while (1) {

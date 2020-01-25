@@ -14,6 +14,7 @@ A household has a digital combination deadbolt lock system on the doorway. The s
 * `ssh [username]@bolt.cs.ucr.edu` - to connect to UCR server
 * `ssh wch136-0x` - where x is equal to 02-30, for direction connection to lab machines, need to be inside a UCR server initially before you can do this.
 * `make test` - to generate and run tests for the program
+* `make program` - Build the project and program the chip. (Don't forget to power the board). 
 * `/usr/csshare/pkgs/cs120b-avrtools/createProject.sh` - runs project creation bash script
 * `avr-gcc -mmcu=atmega1284 -I/usr/csshare/pkgs/simavr/ -Iheader/ -D_SIMULATE_ -Wall -Wl,--undefined=_mmcu,--section-start=.mmcu=910000 -o build/objects/main.elf source/main.c` - compiles the source into main.elf file
 * `simavr -v -v -v -v -m atmega1284 -f 8000000 build/objects/main.elf` - runs simulation

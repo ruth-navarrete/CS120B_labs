@@ -14,7 +14,7 @@ Collection of labs for CS120B Intro to Embedded Systems
 * `simavr -v -v -v -v -m atmega1284 -f 8000000 build/objects/main.elf` - runs simulation
 * `gtkwave build/results/Lab2_introToAVR_trace.vcd` - runs waveform simulation
 * `avrdude -c atmelice_isp -p atmega1284 -U hfuse:w:0xD9:m` - disable JTAG
-* `tar -czvf [cslogin]_lab2.tgz turnin/` - to compress/zip turnin folder
+* `tar -czvf [cslogin]_lab[lab_number].tgz turnin/` - to compress/zip turnin folder
 
 
 # Lab Specifications

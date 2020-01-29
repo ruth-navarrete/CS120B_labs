@@ -24,20 +24,22 @@ int main(void) {
 
     DDRA = 0x00; PINA = 0xFF;   /* Configure PORTA as input, initialize to 1s */
     DDRC = 0xFF; PORTC = 0x00;  /* Configure PORTC as output, initialize to 0s */
+	unsigned char inputA = 0x00;
     unsigned char outputC = 0x00;
 
     while (1) {
+		inputA = ~PINA & 0x0F;
         outputC = 0x00;
 
-        if (PINA < 5) {
+        if (inputA < 5) {
             /* All fuels 4 and below have PC6 lit */
             outputC = 0x40;
 
             /* if PINA == 0*/
-            if (PINA == 0) {
+            if (inputA == 0) {
             }
             /* if PINA == 1 || PINA == 2 */
-            else if (PINA < 3) {
+            else if (inputA < 3) {
                 outputC = outputC | 0x20;
             }
             /* if PINA == 3 || PINA == 4 */
@@ -46,19 +48,19 @@ int main(void) {
             }
         }
         /*if PINA == 5 || PINA == 6 */
-        else if (PINA < 7) {
+        else if (inputA < 7) {
             outputC = 0x38;
         }
         /* if PINA == 7 || PINA == 8 || PINA == 9 */
-        else if (PINA < 10) {
+        else if (inputA < 10) {
             outputC = 0x3C;
         }
         /* if PINA == 10 || PINA == 11 || PINA == 12 */
-        else if (PINA < 13) {
+        else if (inputA < 13) {
             outputC = 0x3E;
         }
         /* if PINA == 13 || PINA == 14 || PINA == 15 */
-        else if (PINA < 16) {
+        else if (inputA < 16) {
             outputC = 0x3F;
         }
         else {

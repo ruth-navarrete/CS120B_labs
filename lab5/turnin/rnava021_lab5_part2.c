@@ -31,16 +31,16 @@ void button_tick () {
             state = wait;
             break;
         case wait:
-            if((PINA & 0x01) && (PINA & 0x02)){
+            if((~PINA & 0x01) && (~PINA & 0x02)){
 		state = reset;
 	    }
-	    else if(PINA & 0x01){
+	    else if(~PINA & 0x01){
 		state = inc;
 	    }
-	    else if(PINA & 0x02){
+	    else if(~PINA & 0x02){
 		state = dec;
 	    }
-	    else if(!((PINA & 0x01) || (PINA & 0x02))) {
+	    else if(!((~PINA & 0x01) || (~PINA & 0x02))) {
 		state = wait;
 	    }
             break;
@@ -48,13 +48,13 @@ void button_tick () {
             state = i_hold;
             break;
         case i_hold:
-            if(!((PINA & 0x01) || (PINA & 0x02))){
+            if(!((~PINA & 0x01) || (~PINA & 0x02))){
 		state = wait;
 	    }
-	    else if((PINA & 0x01) && !(PINA & 0x02)){
+	    else if((~PINA & 0x01) && !(~PINA & 0x02)){
                 state = i_hold;
 	    }
-            else if(PINA & 0x02){
+            else if(~PINA & 0x02){
                 state = reset;
             }
             else{
@@ -65,13 +65,13 @@ void button_tick () {
             state = d_hold;
 	    break;
 	case d_hold:
-            if(!((PINA & 0x01) || (PINA & 0x02))){
+            if(!((~PINA & 0x01) || (~PINA & 0x02))){
                 state = wait;
             }
-            else if((PINA & 0x02) && !(PINA & 0x01)){
+            else if((~PINA & 0x02) && !(~PINA & 0x01)){
                 state = d_hold;
             }
-            else if(PINA & 0x01){
+            else if(~PINA & 0x01){
                 state = reset;
             }
             else{
@@ -79,7 +79,7 @@ void button_tick () {
             }
 	    break;
 	case reset:
-            state = ((PINA & 0x01) || (PINA & 0x02)) ? reset : wait;
+            state = ((~PINA & 0x01) || (~PINA & 0x02)) ? reset : wait;
 	    break;
         default:
             state = start;

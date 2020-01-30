@@ -71,7 +71,6 @@ ISR(TIMER1_COMPA_vect)
 	}
 }
 
-
 void Tick() {
     switch (state) { /* transitions */
     case start:
@@ -112,7 +111,7 @@ int main(void) {
     /* Insert DDR and PORT initializations */
     DDRB = 0xFF; PORTB = 0x00; /* Configure PORTB as output, initialized to all 0s*/
     state = start;
-    TimerSet(100);
+    TimerSet(1000);
     TimerOn();
 
     while (1) {

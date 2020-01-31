@@ -25,7 +25,7 @@ void Tick() {
     case led1:
         state = led2;
         break;
-    case led2;
+    case led2:
         state = led3;
         break;
     case led3:
@@ -42,7 +42,7 @@ void Tick() {
     case led1:
         PORTB = 0x01;
         break;
-    case led2;
+    case led2:
         PORTB = 0x02;
         break;
     case led3:

@@ -1,5 +1,5 @@
-/*	Author: rnava021
- *  Partner(s) Name: Dylan McDowell
+/*	Author: rnava021, dmcdo006
+ *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
  *	Assignment: Lab 6  Exercise 1
  *	Exercise Description: [optional - include for your own benefit]

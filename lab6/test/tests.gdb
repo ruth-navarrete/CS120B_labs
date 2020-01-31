@@ -33,7 +33,35 @@ continue 100
 expectPORTB 0x01
 checkResult
 
-# Add tests below
+test "PINA: 0x00, wait 1100ms => PORTB: 0x02"
+setPINA 0x00
+continue 1100
+expectPORTB 0x02
+checkResult
+
+test "PINA: 0x00, wait 2100ms => PORTB: 0x04"
+setPINA 0x00
+continue 2100
+expectPORTB 0x04
+checkResult
+
+test "PINA: 0x00, wait 3100ms => PORTB: 0x01"
+setPINA 0x00
+continue 3100
+expectPORTB 0x01
+checkResult
+
+test "PINA: 0x00, wait 4100ms => PORTB: 0x02"
+setPINA 0x00
+continue 4100
+expectPORTB 0x02
+checkResult
+
+test "PINA: 0x00, wait 5100ms => PORTB: 0x04"
+setPINA 0x00
+continue 5100
+expectPORTB 0x04
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed

@@ -50,7 +50,7 @@ int main(void) {
             PORTB = 0x7F;
         }
         else{
-            PORTB = 0xFF
+            PORTB = 0xFF;
         }
     }
     return 1;

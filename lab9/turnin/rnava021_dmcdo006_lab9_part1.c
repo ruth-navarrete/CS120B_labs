@@ -69,15 +69,15 @@ int main(void) {
 	while (1) {
 		input_A = ~PINA & 0x07;
 		
-		if (input_A & 0x01) {
+		if ((input_A & 0x01) && !(input_A & 0x02) && !(input_A & 0x04)) {
 			// output C4
 			set_PWM(261.63);
 		}
-		else if (input_A & 0x02) {
+		else if (!(input_A & 0x01) && (input_A & 0x02) && !(input_A & 0x04)) {
 			// output D4
 			set_PWM(293.66);
 		}
-		else if (input_A & 0x4) {
+		else if (!(input_A & 0x01) && !(input_A & 0x02) && (input_A & 0x04)) {
 			// output E4
 			set_PWM(329.23);
 		}

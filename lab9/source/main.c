@@ -50,7 +50,7 @@ void PWM_off() {
 	TCCR3B = 0x00;
 }
 
-enum States {start, init, wait, inc, inc_h, dec, dec_h, toggle} state;
+enum States {start, init, wait, inc, inc_h, dec, dec_h, toggle, toggle_h} state;
 
 volatile unsigned char TimerFlag = 0;
 void TimerISR() { TimerFlag = 1; }
@@ -91,22 +91,75 @@ ISR(TIMER1_COMPA_vect)
         _avr_timer_cntcurr = _avr_timer_M;
     }
 }
+//Global Variables
+double freq; //Holds the frequency that the speaker will be set at.
+double freqs[8] = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25}
+unsigned char en; // indicates whether or not the speaker is on.
+unsigned char i; //Holds the index position of our current position. Goes no lower than 0,
+                 // no higher than 7.
 
-unsigned char en;
+unsigned char a0; // bit 0 on port A
+unsigned char a1; // bit 1 on port A
+unsigned char a2; // bit 2 on port A
+
+void get_input(){
+    a0 = (~PINA & 0x01);
+    a1 = (~PINA & 0x02);
+    a2 = (~PINA & 0x04);
+}
+
 void Tick() {
+    get_input();
     switch(state) { //Transitions
     case start:
+        state = init;
+        break;
     case init:
+        state = wait;
+        break;
     case wait;
+        if(a2){
+            state = toggle;
+        }
+        else if(!a2 && !a1 && a0){
+            state = inc;
+        }
+        else if(!a2 && a1 && !a0){
+            state = dec;
+        }
+        else if(!a2 && a1 && a0){
+            state = wait;
+        }
+        else{
+            state = wait;
+        }
+        break;
     case inc:
+        state = inc_h;
+        break;
     case inc_h:
+        state = (a2 || a1 || a0) ? inc_h : wait;
+        break;
     case dec:
+        state = dec_h;
+        break;
     case dec_h:
+        state = (a2 || a1 || a0) ? dec_h : wait;
+        break;
     case toggle:
+        state = toggle_h;
+        break;
+    case toggle_h:
+        state = (a2 || a1 || a0) ? toggle_h : wait;
+        break;
+    default:
+        state = start;
+        break;
     }
 
     switch(state) { //Actions
     case start:
+        break;
     case init:
     case wait;
     case inc:
@@ -114,8 +167,9 @@ void Tick() {
     case dec:
     case dec_h:
     case toggle:
+    default:
+        break;
     }
-
 }
 
 int main(void) {
@@ -126,6 +180,7 @@ int main(void) {
     TimerSet(100);
     TimerOn();
     freq = 0;
+    en = 1;
     while (1) {
          Tick();
          while(!TimerFlag){}

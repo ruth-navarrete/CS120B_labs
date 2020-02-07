@@ -16,6 +16,7 @@
  *	code, is my own original work.
  */
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
@@ -31,7 +32,7 @@ void set_PWM(double frequency) {
 
         else if(frequency > 31250) { OCR3A = 0x0000; }
 
-        else {OCR3A = (short) ( 8000000 / (128 * frequency))-1;}
+        else { OCR3A = (short)(8000000 / (128* frequency)) - 1; }
 
         TCNT3 = 0;
         current_frequency = frequency;
@@ -45,17 +46,77 @@ void PWM_on() {
 }
 
 void PWM_off() {
-    TCCR3A = 0x00;
-    TCCR3B = 0x00;
+	TCCR3A = 0x00;
+	TCCR3B = 0x00;
 }
 
-enum States {start, init,  } state;
+enum States {start, init, wait, inc, inc_h, dec, dec_h, toggle} state;
 
 volatile unsigned char TimerFlag = 0;
 void TimerISR() { TimerFlag = 1; }
-double freq;
 
-//void Tick() {};
+unsigned long _avr_timer_M = 1; // Start count from here, down to 0. Default 1ms
+unsigned long _avr_timer_cntcurr = 0; // Current internal count of 1ms ticks
+
+// Set TimerISR() to tick every M ms
+void TimerSet(unsigned long M) {
+    _avr_timer_M = M;
+    _avr_timer_cntcurr = _avr_timer_M;
+}
+void TimerOn() {
+     // AVR timer/counter controller register TCCR1
+     TCCR1B = 0x0B; // bit3 = 1: CTC mode (clear timer on compare)
+     // AVR output compare register OCR1A.
+     OCR1A = 125;
+     TIMSK1 = 0x02;
+     
+     TCNT1 = 0;
+
+     _avr_timer_cntcurr = _avr_timer_M;
+
+     //Enable global interrupts
+     SREG |= 0x80;
+}
+
+void TimerOff() {
+    TCCR1B = 0x00; // bit3bit2bit1bit0=0000: timer off
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+    //CPU automatically calls when TCNT0 == OCR0 (every 1 ms per TimerOn settings)
+    _avr_timer_cntcurr--; 		// Count down to 0 rather than up to TOP
+    if (_avr_timer_cntcurr == 0) {      // results in a more efficient compare
+        TimerISR(); 			// Call the ISR that the user uses
+        _avr_timer_cntcurr = _avr_timer_M;
+    }
+}
+
+unsigned char en;
+void Tick() {
+    switch(state) { //Transitions
+    case start:
+    case init:
+    case wait;
+    case inc:
+    case inc_h:
+    case dec:
+    case dec_h:
+    case toggle:
+    }
+
+    switch(state) { //Actions
+    case start:
+    case init:
+    case wait;
+    case inc:
+    case inc_h:
+    case dec:
+    case dec_h:
+    case toggle:
+    }
+
+}
 
 int main(void) {
     DDRA = 0x00; PINA = 0xFF; // Initialize port A's 8 pins to input
@@ -66,8 +127,7 @@ int main(void) {
     TimerOn();
     freq = 0;
     while (1) {
-         //Tick();
-         set_PWM(261.63);
+         Tick();
          while(!TimerFlag){}
          TimerFlag = 0;
     }

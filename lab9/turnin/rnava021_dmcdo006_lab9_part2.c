@@ -93,7 +93,7 @@ ISR(TIMER1_COMPA_vect)
 }
 //Global Variables
 double freq; //Holds the frequency that the speaker will be set at.
-double freqs[8] = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25}
+double freqs[8] = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25};
 unsigned char en; // indicates whether or not the speaker is on.
 unsigned char i; //Holds the index position of our current position. Goes no lower than 0,
                  // no higher than 7.
@@ -117,7 +117,7 @@ void Tick() {
     case init:
         state = wait;
         break;
-    case wait;
+    case wait:
         if(a2){
             state = toggle;
         }
@@ -177,6 +177,7 @@ void Tick() {
         if(i > 0){
             i--;
         }
+		freq = freqs[i];
         break;
     case dec_h:
         break;
@@ -196,7 +197,7 @@ void Tick() {
         break;
     }
 
-    set_PWM(freq)
+    set_PWM(freq);
 }
 
 int main(void) {
@@ -215,5 +216,3 @@ int main(void) {
     }
     return 1;
 }
-
-

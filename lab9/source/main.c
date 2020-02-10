@@ -145,6 +145,7 @@ void Tick() {
         freq = freqs[0];
         break;
     case wait:
+        i = 0;
         break;
     case play:
         switch (i){//For each Half beat(each beat is 250 ticks), check the number of half-beats

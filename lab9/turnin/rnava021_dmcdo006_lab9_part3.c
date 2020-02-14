@@ -1,7 +1,7 @@
 /*	Author: rnava021, dmcdo006
  *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab #9  Exercise #2
+ *	Assignment: Lab #9  Exercise #3
  *	Exercise Description: [optional - include for your own benefit]
  *	Using the ATmega1284’s PWM functionality, design a system where the notes: 
  *	C4, D, E, F, G, A, B, and C5,  from the table at the top of the lab, can 

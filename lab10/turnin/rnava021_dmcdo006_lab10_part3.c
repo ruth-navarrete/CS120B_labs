@@ -1,7 +1,7 @@
 /*	Author: rnava021, dmcdo006
  *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab 10  Exercise 2
+ *	Assignment: Lab 10  Exercise 3
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -22,8 +22,8 @@ typedef struct task {
 } task;
 
 /* array to hold tasks */
-task tasks[3];
-const unsigned short tasksNum = 3;
+task tasks[4];
+const unsigned short tasksNum = 4;
 
 /* information held constant */
 const unsigned long tasksPeriodGCD = 2;
@@ -110,12 +110,13 @@ int BlinkingLEDSM(int state) {
 /* SpeakerPulseSM */
 enum SP_States {SP_start, off, on};
 int SpeakerPulseSM(int state) {
+	unsigned char button = (~PINA & 0x04) >> 2 ;
 	switch(state) { // transitions
 		case SP_start:
 			state = off;
 			break;
 		case off:
-			state = (PINA & 0x04) ? on : off;
+			state = (button == 0x01) ? on : off;
 			break;
 		case on:
 			state = off;
@@ -125,7 +126,7 @@ int SpeakerPulseSM(int state) {
 			break;
 	} // transitions
 	switch(state) { // actions
-		case CL_start:
+		case SP_start:
 			break;
 		case off:
 			speakerPulse = 0x00;
@@ -232,7 +233,7 @@ ISR(TIMER1_COMPA_vect)
 
 int main(void) {
 	DDRB = 0xFF; PORTB = 0x00;
-	DDRA = 0x00; PORTA = 0xFF;
+	DDRA = 0x00; PINA = 0xFF;
 	
 	unsigned i = 0;
 	tasks[i].state = TL_start;
@@ -258,7 +259,7 @@ int main(void) {
 	tasks[i].elapsedTime = 0;
 	tasks[i].TickFct = &CombineLEDsSM;
 	
-	TimerSet(100);
+	TimerSet(tasksPeriodGCD);
 	TimerOn();
 	
     while (1) { }

@@ -1,7 +1,7 @@
 /*	Author: rnava021, dmcdo006
  *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab 10  Exercise 3
+ *	Assignment: Lab 10  Exercise 4
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -133,7 +133,7 @@ int SpeakerPulseSM(int state) {
 			}
 			break;
 		case on:
-			if((i >= soundPeriod){
+			if (i >= soundPeriod) {
 				state = off;
 				i = 0;
 			}
@@ -162,21 +162,21 @@ int SpeakerPulseSM(int state) {
 };
 
 /* IncrementFreqSM */
-enum IF_States {IF_start, wait, press, press_w};
+enum IF_States {IF_start, if_wait, if_press, if_press_w};
 int IncrementFreqSM(int state) {
 	unsigned char button = (~PINA & 0x01);
 	switch(state) { // transitions
 		case IF_start:
-			state = inf;
+			state = if_wait;
 			break;
-		case wait:
-			state = (button) ? press : wait;
+		case if_wait:
+			state = (button) ? if_press : if_wait;
 			break;
-		case press:
-			state = press_w;
+		case if_press:
+			state = if_press_w;
 			break;
-		case press_w:
-			state = (button) ? press_w : wait;
+		case if_press_w:
+			state = (button) ? if_press_w : if_wait;
 			break;
 		default:
 			state = IF_start;
@@ -185,13 +185,13 @@ int IncrementFreqSM(int state) {
 	switch(state) { // actions
 		case IF_start:
 			break;
-		case wait:
+		case if_wait:
 			up = 0;
 			break;
-		case press:
+		case if_press:
 			up = 1;
 			break;
-		case press_w:
+		case if_press_w:
 			up = 0;
 			break;
 		default:
@@ -201,21 +201,21 @@ int IncrementFreqSM(int state) {
 };
 
 /* IncrementFreqSM */
-enum DF_States {DF_start, wait, press, press_w};
+enum DF_States {DF_start, df_wait, df_press, df_press_w};
 int DecrementFreqSM(int state) {
 	unsigned char button = (~PINA & 0x02) >> 1;
 	switch(state) { // transitions
 		case DF_start:
-			state = inf;
+			state = df_wait;
 			break;
-		case wait:
-			state = (button) ? press : wait;
+		case df_wait:
+			state = (button) ? df_press : df_wait;
 			break;
-		case press:
-			state = press_w;
+		case df_press:
+			state = df_press_w;
 			break;
-		case press_w:
-			state = (button) ? press_w : wait;
+		case df_press_w:
+			state = (button) ? df_press_w : df_wait;
 			break;
 		default:
 			state = DF_start;
@@ -224,13 +224,13 @@ int DecrementFreqSM(int state) {
 	switch(state) { // actions
 		case DF_start:
 			break;
-		case wait:
+		case df_wait:
 			down = 0;
 			break;
-		case press:
+		case df_press:
 			down = 1;
 			break;
-		case press_w:
+		case df_press_w:
 			down = 0;
 			break;
 		default:
@@ -239,23 +239,23 @@ int DecrementFreqSM(int state) {
 	return state;
 };
 
-enum DP_States {DP_start, inf};
+enum DP_States {DP_start, dp_inf};
 int DeterminePeriodSM(int state) {
 	switch(state) { // transitions
 		case DP_start:
-			state = inf;
+			state = dp_inf;
 			break;
-		case inf:
-			state = inf;
+		case dp_inf:
+			state = dp_inf;
 			break;
 		default:
-			state = inf;
+			state = dp_inf;
 			break;
 	} // transitions
 	switch(state) { // actions
-		case CL_start:
+		case DP_start:
 			break;
-		case inf:
+		case dp_inf:
 			if (up && !down && (soundPeriod > 1)){
 				soundPeriod --;
 			}
@@ -270,23 +270,23 @@ int DeterminePeriodSM(int state) {
 };
 
 /* CombineLEDsSM */
-enum CL_States {CL_start, inf};
+enum CL_States {CL_start, cl_inf};
 int CombineLEDsSM(int state) {
 	switch(state) { // transitions
 		case CL_start:
-			state = inf;
+			state = cl_inf;
 			break;
-		case inf:
-			state = inf;
+		case cl_inf:
+			state = cl_inf;
 			break;
 		default:
-			state = inf;
+			state = cl_inf;
 			break;
 	} // transitions
 	switch(state) { // actions
 		case CL_start:
 			break;
-		case inf:
+		case cl_inf:
 			PORTB = blinkingLED | threeLEDs | speakerPulse;
 			break;
 		default:

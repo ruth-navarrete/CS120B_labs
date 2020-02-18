@@ -10,24 +10,40 @@
 
 #include <avr/io.h>
 #include "header/timer.h"
-#include "header/keypad.h"
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
 
 volatile unsigned char TimerFlag;
 
-/* Find GCD */
-unsigned long int findGCD(unsigned long int a, unsigned long int b) {
-	unsigned long int c = 0;
-	while (1) {
-		c = a%b;
-		if (c == 0) { return b; }
-		a = b;
-		b = c;
-	}
-	return 0;
-}
+/* keypad implementation */
+PORTC = 0xEF; // ROW4
+	asm("nop");
+	if (GetBit(PINC, 0) == 0) { return 'D'; } // COL4
+	if (GetBit(PINC, 1) == 0) { return '#'; } // COL3
+	if (GetBit(PINC, 2) == 0) { return '0'; } // COL2
+	if (GetBit(PINC, 3) == 0) { return '*'; } // COL1
+		
+	PORTC = 0xDF; // R0W3
+	asm("nop");
+	if (GetBit(PINC, 0) == 0) { return 'C'; } // COL4
+	if (GetBit(PINC, 1) == 0) { return '9'; } // COL3
+	if (GetBit(PINC, 2) == 0) { return '8'; } // COL2
+	if (GetBit(PINC, 3) == 0) { return '7'; } // COL1
+		
+	PORTC = 0xBF; // R0W2
+	asm("nop");
+	if (GetBit(PINC, 0) == 0) { return 'B'; } // COL4
+	if (GetBit(PINC, 1) == 0) { return '6'; } // COL3
+	if (GetBit(PINC, 2) == 0) { return '5'; } // COL2
+	if (GetBit(PINC, 3) == 0) { return '4'; } // COL1
+		
+	PORTC = 0x7F; // R0W1
+	asm("nop");
+	if (GetBit(PINC, 0) == 0) { return 'A'; } // COL4
+	if (GetBit(PINC, 1) == 0) { return '3'; } // COL3
+	if (GetBit(PINC, 2) == 0) { return '2'; } // COL2
+	if (GetBit(PINC, 3) == 0) { return '1'; } // COL1
 
 /* A struct to collect all items related to a task. */
 typedef struct task {

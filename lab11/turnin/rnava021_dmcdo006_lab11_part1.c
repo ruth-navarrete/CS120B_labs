@@ -17,7 +17,8 @@
 volatile unsigned char TimerFlag;
 
 /* keypad implementation */
-PORTC = 0xEF; // ROW4
+unsigned char GetKeypadKey() {
+    PORTC = 0xEF; // ROW4
 	asm("nop");
 	if (GetBit(PINC, 0) == 0) { return 'D'; } // COL4
 	if (GetBit(PINC, 1) == 0) { return '#'; } // COL3
@@ -44,6 +45,7 @@ PORTC = 0xEF; // ROW4
 	if (GetBit(PINC, 1) == 0) { return '3'; } // COL3
 	if (GetBit(PINC, 2) == 0) { return '2'; } // COL2
 	if (GetBit(PINC, 3) == 0) { return '1'; } // COL1
+}
 
 /* A struct to collect all items related to a task. */
 typedef struct task {

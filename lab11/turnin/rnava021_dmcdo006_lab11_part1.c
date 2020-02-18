@@ -9,6 +9,7 @@
  */
 
 #include <avr/io.h>
+#include "header/bit.h"
 #include "header/timer.h"
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
@@ -45,6 +46,8 @@ unsigned char GetKeypadKey() {
 	if (GetBit(PINC, 1) == 0) { return '3'; } // COL3
 	if (GetBit(PINC, 2) == 0) { return '2'; } // COL2
 	if (GetBit(PINC, 3) == 0) { return '1'; } // COL1
+
+    return '\0';
 }
 
 /* A struct to collect all items related to a task. */

@@ -67,6 +67,8 @@ unsigned char GetKeypadKey() {
 	if (GetBit(PINC, 2) == 0) { return '2'; } // COL2
 	if (GetBit(PINC, 3) == 0) { return '1'; } // COL1
 
+	return '\0';
+
 /*
 	// Check keys in col 1
 	KEYPADPORT = SetBit(0xFF,COL1,0); // Set Px4 to 0; others 1
@@ -101,7 +103,6 @@ unsigned char GetKeypadKey() {
 	if (GetBit(~KEYPADPIN,ROW3) ) { return 'C'; }
 	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
 */
-	return '\0';
 }
 
 #endif //KEYPAD_H

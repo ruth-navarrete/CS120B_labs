@@ -192,7 +192,8 @@ int main(void) {
 			}
 			tasks[i].elapsedTime += periodGCD;
 		}
-		while (!TimerFlag) { TimerFlag = 0; }
+		while (!TimerFlag) { }
+		TimerFlag = 0;
 	}
 	
     return 0;

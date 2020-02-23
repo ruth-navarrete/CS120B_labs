@@ -88,7 +88,7 @@ void UpdateDisplay(){
 /* pauseButton_SM */
 enum PB_States{PB_start, PB_wait, PB_press, PB_release};
 int pauseButton_SM (int state){
-	unsigned char pbutton = (~PINA & 0x01);
+	unsigned char pbutton = ((~PINA) & 0x01);
 	switch(state){//Transitions
 		case PB_start:
 			pause = 0;
@@ -130,8 +130,8 @@ enum G_States{G_start, G_init, G_play, G_pause, G_gameover};
 int GameSM(int state){
 	static unsigned char game_over;
 	static unsigned char i;
-	unsigned char upbutton = (~PINA & 0x02) >> 1;
-	unsigned char downbutton = (~PINA & 0x03) >> 2;
+	unsigned char upbutton = ((~PINA) & 0x02);
+	unsigned char downbutton = ((~PINA) & 0x03);
 	switch(state){//Transitions
 		case G_start:
 			state = G_init;
@@ -184,7 +184,7 @@ int GameSM(int state){
 			if(pos == 0 && upperObst == 0x8000){
 				game_over = 1;
 			}
-			if(pos == 1 && upperObst == 0x8000){
+			if(pos == 1 && lowerObst == 0x8000){
 				game_over = 1;
 			}
 			//Update player char position

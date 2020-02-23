@@ -131,7 +131,7 @@ int GameSM(int state){
 	static unsigned char game_over;
 	static unsigned char i;
 	unsigned char upbutton = ((~PINA) & 0x02);
-	unsigned char downbutton = ((~PINA) & 0x03);
+	unsigned char downbutton = ((~PINA) & 0x04);
 	switch(state){//Transitions
 		case G_start:
 			state = G_init;

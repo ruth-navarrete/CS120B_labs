@@ -143,11 +143,11 @@ int GameSM(int state){
 			if(!(game_over || pause)){
 				state = G_play;
 			}
-			else if(game_over){
-				state = G_gameover;
-			}
 			else if(pause && !game_over){
 				state = G_pause;
+			}
+			else if(game_over){
+				state = G_gameover;
 			}
 			else{state = G_play;}//Error. Should not occur
 			break;
@@ -176,7 +176,7 @@ int GameSM(int state){
 			//Update Obstacles
 			i++;
 			game_state = 0;
-			if(i > 5){
+			if(i > 10){
 				i = 0;
 				UpdateObst();
 			}

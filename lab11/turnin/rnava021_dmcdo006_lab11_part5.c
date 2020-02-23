@@ -41,7 +41,7 @@ const unsigned char go_message[] = "GAME  OVER";
 unsigned short upperObst;
 unsigned short lowerObst;
 unsigned char pos;
-unsigned char state;
+unsigned char game_state;
 unsigned char pause;
 
 /* helper functions */
@@ -172,12 +172,12 @@ int GameSM(int state){
 			pos = 0;
 			upperObst = 0x0040;
 			lowerObst = 0x0004;
-			state = 0;
+			game_state = 0;
 			break;
 		case G_play:
 			//Update Obstacles
 			i++;
-			state = 0;
+			game_state = 0;
 			if(i > 5){
 				i = 0;
 				UpdateObst();
@@ -206,7 +206,7 @@ int GameSM(int state){
 			upperObst = 0x0040;
 			lowerObst = 0x0004;
 			pos = 0;
-			state = 1;
+			game_state = 1;
 			break;
 		default:
 			break;
@@ -233,7 +233,7 @@ int LCDDisplaySM(int state){
 		case LD_start:
 			break;
 		case LD_display:
-			if(state){
+			if(game_state){
 				LCD_ClearScreen();
 				LCD_DisplayString(4, go_message);
 			}

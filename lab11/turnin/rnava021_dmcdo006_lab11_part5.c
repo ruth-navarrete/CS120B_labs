@@ -72,10 +72,8 @@ void UpdateDisplay(){
 			LCD_Cursor(lcd_i + 16);
 			LCD_WriteData('#');
 		}
-		else{
-			lower = lower << 1;
-			lcd_i++;
-		}
+		lower = lower << 1;
+		lcd_i++;
 	}
 	//Update/reset cursor position
 	if(pos){

@@ -196,7 +196,7 @@ int GameSM(int state){
 			}
 			break;
 		case G_pause:
-			i = 0;
+			game_state = 0;
 			break;
 		case G_gameover:
 			i = 0;

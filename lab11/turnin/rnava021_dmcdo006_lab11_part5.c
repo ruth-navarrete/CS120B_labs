@@ -60,7 +60,7 @@ void UpdateDisplay(){
 	lcd_i = 1;
 	while(lcd_i <= 16){
 		if(upper & 0x8000){//IF first bit is 1
-			LCD_Cursor(lcd_i + 1);// go to found postion
+			LCD_Cursor(1);// go to found postion
 			LCD_WriteData('#');//write the obstacle in.
 		}
 		upper = upper << 1;//shift to the left

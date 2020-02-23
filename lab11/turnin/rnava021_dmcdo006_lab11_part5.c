@@ -1,7 +1,7 @@
 /*	Author: rnava021, dmcdo006
  *  Partner(s) Name: Ruth Navarrete, Dylan McDowell
  *	Lab Section: 24
- *	Assignment: Lab 11  Exercise 2
+ *	Assignment: Lab 11  Exercise 5
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -256,11 +256,22 @@ int main(void) {
 
 	unsigned int i = 0;
 	
-	tasks[i].state = LC;
-	tasks[i].period = periodLcdDisplay;
+	tasks[i].state = PB_start;
+	tasks[i].period = periodPauseButton;
 	tasks[i].elapsedTime = 0;
-	tasks[i].TickFct = &lcdDisplay_SM;
+	tasks[i].TickFct = &pauseButton_SM;
 	i++;
+
+	tasks[i].state = G_start;
+	tasks[i].period = periodGame;
+	tasks[i].elapsedTime = 0;
+	tasks[i].TickFct = &GameSM;
+	i++;
+
+	tasks[i].state = LD_start;
+	tasks[i].period = periodLCDDisplay;
+	tasks[i].elapsedTime = 0;
+	tasks[i].TickFct = &LCDDisplaySM;
 
 	TimerSet(periodGCD);
 	TimerOn();
